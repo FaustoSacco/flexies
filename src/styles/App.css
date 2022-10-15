@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+.page {
+  padding: 20px;
+  background-color: lightcoral;
+}
+
+.shift-swap-container {
+  display: flex;
+  justify-content: space-between;
+  background: #AAC4FF;
+}
+
+.shift-container {
+  padding: 10px;
+  background: #f9f9f9;
+  margin-bottom: 10px;
+}
+
+.shift-status {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: green;
+  color: white;
+}
+
+.shift-details {
+  display: block;
+
+}

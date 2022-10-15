@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useApp } from "../components/AppProvider";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
-import { validateAccount } from "../config/users";
+import { validateAccount } from "../utils/validation";
 
 function Login() {
   const navigate = useNavigate();
+  const { handleUpdateUser } = useApp();
   const [error, setError] = useState("");
   const [values, setValues] = useState({
     email: "",
@@ -13,6 +15,7 @@ function Login() {
 
   function handleSubmit() {
     if (validateAccount(values)) {
+      handleUpdateUser(values);
       navigate("/dashboard");
     } else {
       setError("No account exists for that account");
