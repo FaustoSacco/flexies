@@ -21,3 +21,23 @@ export function requestNewShiftSwap(shiftArray) {
     [shiftDate]: [updatedShift1, updatedShift2],
   };
 }
+
+export function requestApproval(shiftArray) {
+  const [shift1, shift2] = shiftArray;
+
+  const updatedShift1 = {
+    ...shift1,
+    status: "approved",
+  };
+
+  const updatedShift2 = {
+    ...shift2,
+    status: "approved",
+  };
+
+  const shiftDate = shift1.date;
+
+  return {
+    [shiftDate]: [updatedShift1, updatedShift2],
+  };
+}

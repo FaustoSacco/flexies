@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useApp } from "../components/AppProvider";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
@@ -6,17 +6,22 @@ import { validateAccount } from "../utils/validation";
 
 function Login() {
   const navigate = useNavigate();
-  const { handleUpdateUser } = useApp();
+  const { handleUpdateUser, user } = useApp();
   const [error, setError] = useState("");
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
 
+  useEffect(() => {
+    if (user) {
+      navigate(user.role === "admin" ? "/requests" : "/dashboard");
+    }
+  }, [user]);
+
   function handleSubmit() {
     if (validateAccount(values)) {
       handleUpdateUser(values);
-      navigate("/dashboard");
     } else {
       setError("No account exists for that account");
     }
