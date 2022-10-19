@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { users } from "../config/users";
 import {
   requestNewShiftSwap,
+  acceptedShiftSwap,
   requestApproval,
 } from "../utils/requestNewShiftSwap";
 
@@ -56,9 +57,16 @@ const AppProvider = ({ children }) => {
     );
 
     setUser(currentLoggedInUser);
+
+    if (window.sessionStorage.getItem("flexies")) {
+      return;
+    } else {
+      window.sessionStorage.setItem("flexies", JSON.stringify(allShifts));
+    }
   }
 
   function logOut() {
+    window.sessionStorage.setItem("flexies", JSON.stringify(allShifts));
     window.sessionStorage.removeItem("flexiesUser");
     setUser(null);
   }
@@ -66,11 +74,19 @@ const AppProvider = ({ children }) => {
   function updateData(shiftsToSwap) {
     const newData = {
       ...allShifts,
-      ...requestNewShiftSwap(shiftsToSwap),
+      ...requestNewShiftSwap(user, shiftsToSwap),
     };
 
     setAllShifts(newData);
-    window.sessionStorage.setItem("flexies", JSON.stringify(newData));
+  }
+
+  function acceptRequest(shiftsToSwap) {
+    const newData = {
+      ...allShifts,
+      ...acceptedShiftSwap(user, shiftsToSwap),
+    };
+
+    setAllShifts(newData);
   }
 
   function updateApprovedData(shiftsToSwap) {
@@ -80,7 +96,6 @@ const AppProvider = ({ children }) => {
     };
 
     setAllShifts(newData);
-    window.sessionStorage.setItem("flexies", JSON.stringify(newData));
   }
 
   return (
@@ -91,6 +106,7 @@ const AppProvider = ({ children }) => {
         handleUpdateUser,
         updateData,
         updateApprovedData,
+        acceptRequest,
         logOut,
       }}
     >
