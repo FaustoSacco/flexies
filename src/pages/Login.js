@@ -37,11 +37,11 @@ function Login() {
 
   return (
     <div id="login">
-      <h1>Hello Again</h1>
+      <h1>Flexies</h1>
 
       <div className="title-1">
         <h3>
-          <i>"Let's Swap"</i>
+          <i>Hello Again, "Let's Swap"</i>
         </h3>
       </div>
       <div id="login-form" onSubmit={() => false}>
